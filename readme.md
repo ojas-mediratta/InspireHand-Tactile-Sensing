@@ -1,106 +1,134 @@
+# Inspire Hand SDK Setup Guide (LIDAR Lab @ GT)
+
+This guide describes the setup and usage of the Inspire Hand SDK for the LIDAR Lab at Georgia Tech.
 
 ---
 
-# Inspire Hand SDK Usage Guide
+## Virtual Environment Management (Conda)
 
-## Virtual Environment Management
+We use **conda** to manage the Python virtual environment.
 
-It is recommended to use `venv` for managing the virtual environment:
+### 1. Create and Activate Environment
 
 ```bash
-python -m venv venv  # or  Unzip venv_x86.tar.xz, and place the.venv in inspire_hand_ws/.venv
-
-# Then execute the script to modify venv:
-python update_venv_path.py.venv
-python update_bin_files.py.venv 
-
-source venv/bin/activate  # Activate the virtual environment for Linux/MacOS
-
+conda create -n inspire_hand python=3.8
+conda activate inspire_hand
 ```
+---
 
 ## Installation
 
-1. When configuring the environment yourself, you need to install project dependencies; if you use Unzip venv_x86.tar.xz to set up the environment, you do not need to run the following command:
+### 1. Clone Repository (if not already done)
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+```bash
+git clone <repo_url>
+cd InspireHand-Tactile-Sensing
+```
 
-2. Initialize and update submodules:
+### 2. Initialize and Update Submodules
 
-    ```bash
-    git submodule init  # Initialize submodules
-    git submodule update  # Update submodules to the latest version
-    ```
+```bash
+git submodule init
+git submodule update
+```
 
-3. Install the two SDKs:
+### 3. Install SDKs (Editable Mode)
 
-    ```bash
-    cd unitree_sdk2_python
-    pip install -e .
+⚠️ We **do NOT** use `pip install -r requirements.txt`.
 
-    cd ../inspire_hand_sdk
-    pip install -e .
-    ```
+Instead, install the two SDKs in editable mode:
+
+```bash
+cd unitree_sdk2_python
+pip install -e .
+
+cd ../inspire_hand_sdk
+pip install -e .
+```
+
+After installation, return to the root directory:
+
+```bash
+cd ..
+```
+
+---
+
+## Running the Inspire Hands (LIDAR Lab Workflow)
+
+All runtime scripts are located in:
+
+```
+/home/lidar/InspireHand-Tactile-Sensing/inspire_hand_sdk/example
+```
+
+### ⚠️ Important: Multi-Terminal Setup Required
+
+You must run the driver in **one terminal**, and all visualization or other scripts in **separate terminals**.
+
+---
+
+### Step 1: Start the Headless Driver (Required)
+
+In **Terminal 1**, activate conda and run:
+
+```bash
+conda activate inspire_hand
+python inspire_hand_sdk/example/Headless_driver_double.py
+```
+
+This script:
+- Initializes the hands
+- Starts DDS communication
+- Publishes and subscribes to required topics
+
+***This must remain running before launching any other scripts.***
+
+---
+
+### Step 2: Run Visualization or Other Scripts
+
+In **Terminal 2 (or more terminals)**:
+
+```bash
+conda activate inspire_hand
+python inspire_hand_sdk/example/plot_force_hand_map_updated.py
+```
+
+This script:
+- Subscribes to tactile sensor data
+- Displays a GUI
+- Plots force values on the tactile sensor map
+
+Any additional example scripts should also be run in separate terminals while the driver is active.
+
+---
 
 ## Control Modes
 
-The Inspire Hand SDK supports multiple control modes, defined as follows:
+The Inspire Hand SDK supports multiple control modes:
 
-- **Mode 0**: `0000` (No operation)
-- **Mode 1**: `0001` (Angle)
-- **Mode 2**: `0010` (Position)
-- **Mode 3**: `0011` (Angle + Position)
-- **Mode 4**: `0100` (Force control)
-- **Mode 5**: `0101` (Angle + Force control)
-- **Mode 6**: `0110` (Position + Force control)
-- **Mode 7**: `0111` (Angle + Position + Force control)
-- **Mode 8**: `1000` (Velocity)
-- **Mode 9**: `1001` (Angle + Velocity)
-- **Mode 10**: `1010` (Position + Velocity)
-- **Mode 11**: `1011` (Angle + Position + Velocity)
-- **Mode 12**: `1100` (Force control + Velocity)
-- **Mode 13**: `1101` (Angle + Force control + Velocity)
-- **Mode 14**: `1110` (Position + Force control + Velocity)
-- **Mode 15**: `1111` (Angle + Position + Force control + Velocity)
-
-## Usage Examples
-
-Below are instructions for using common examples:
-
-1. **DDS Control Command Publisher**:
-
-    Run the following script to publish control commands:
-    ```bash
-    python inspire_hand_sdk/example/dds_publish.py
-    ```
-
-2. **DDS Subscriber for Inspire Hand Status and Tactile Sensor Data with Visualization**:
-
-    Run the following script to subscribe to the Inspire Hand status and sensor data, and visualize the results:
-    ```bash
-    python inspire_hand_sdk/example/dds_subscribe.py
-    ```
-
-3. **Inspire Hand DDS Driver (Headless Mode)**:
-
-    Use the following script for the headless mode driver:
-    ```bash
-    python inspire_hand_sdk/example/Headless_driver.py
-    ```
-
-4. **Inspire Hand Configuration Panel**:
-
-    Run the following script to use the Inspire Hand configuration panel:
-    ```bash
-    python inspire_hand_sdk/example/init_set_inspire_hand.py
-    ```
-
-5. **Inspire Hand DDS Driver (Panel Mode)**:
-
-    Use the following script to enter panel mode for the Inspire Hand DDS driver:
-    ```bash
-    python inspire_hand_sdk/example/Vision_driver.py
-    ```
+- **Mode 0**: `0000` (No operation)  
+- **Mode 1**: `0001` (Angle)  
+- **Mode 2**: `0010` (Position)  
+- **Mode 3**: `0011` (Angle + Position)  
+- **Mode 4**: `0100` (Force control)  
+- **Mode 5**: `0101` (Angle + Force control)  
+- **Mode 6**: `0110` (Position + Force control)  
+- **Mode 7**: `0111` (Angle + Position + Force control)  
+- **Mode 8**: `1000` (Velocity)  
+- **Mode 9**: `1001` (Angle + Velocity)  
+- **Mode 10**: `1010` (Position + Velocity)  
+- **Mode 11**: `1011` (Angle + Position + Velocity)  
+- **Mode 12**: `1100` (Force control + Velocity)  
+- **Mode 13**: `1101` (Angle + Force control + Velocity)  
+- **Mode 14**: `1110` (Position + Force control + Velocity)  
+- **Mode 15**: `1111` (Angle + Position + Force control + Velocity)  
 
 ---
+
+## Summary (LIDAR Lab Standard Workflow)
+
+1. Activate conda environment  
+2. Start `Headless_driver_double.py` (Terminal 1)  
+3. Run GUI or control scripts in separate terminals  
