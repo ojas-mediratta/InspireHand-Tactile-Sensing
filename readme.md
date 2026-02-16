@@ -4,6 +4,13 @@ This guide describes the setup and usage of the Inspire Hand SDK for the LIDAR L
 
 ---
 
+## Inspire Hand Details
+
+
+<img src="images/inspirehand_tactile_datasheet.jpg" width="50%" alt="Tactile Sensor Datasheet"/>
+<img src="images/inspirehand_tactile_handmap.jpg" width="50%" alt="Tactile Sensor Placement"/>
+
+
 ## Virtual Environment Management (Conda)
 
 We use **conda** to manage the Python virtual environment.
@@ -130,6 +137,8 @@ This script:
 - Subscribes to tactile sensor data
 - Displays a GUI
 - Plots force values on the tactile sensor map
+
+![Mapping Script GUI](images/sensor_map_script_gui.png)
 
 A new set of scripts has been added for tactile data collection and robot hand pose toggling. These scripts are located in:
 ```bash
