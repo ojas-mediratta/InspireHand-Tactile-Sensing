@@ -331,15 +331,23 @@ def main():
                         # Keep fixed scale 0-100 (like ImageTab but with fixed range)
                         sensor_images[var].set_clim(0, max_raw_data)
             
+            # if print_counter == 40:
+            #     np.set_printoptions(precision=1, suppress=True)
+            #     print(np.transpose(smoothed_data['fingerthree_top_touch']))
+            #     print_counter=0
+
             if print_counter == 40:
                 np.set_printoptions(precision=1, suppress=True)
-                print(np.transpose(smoothed_data['fingerthree_top_touch']))
-                print_counter=0
+                for var, data_array in smoothed_data.items():
+                    print(f"Sensor: {var}")
+                    print(np.transpose(data_array))  # transpose for consistent orientation
+                    print("-" * 30)
+                print_counter = 0
             
             fig.canvas.draw_idle()
             print_counter+=1
-            plt.pause(0.05)  # ~20 Hz update rate
-
+            fig.canvas.flush_events() # to avoid interruptions when unfocusing
+            time.sleep(0.025) # 40hz update 
     except KeyboardInterrupt:
         # Allow clean exit on Ctrl+C
         pass
