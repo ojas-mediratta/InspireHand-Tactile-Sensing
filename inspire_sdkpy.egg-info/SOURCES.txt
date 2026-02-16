@@ -1,0 +1,15 @@
+setup.py
+inspire_sdkpy/__init__.py
+inspire_sdkpy/inspire_hand_defaut.py
+inspire_sdkpy/inspire_sdk.py
+inspire_sdkpy/inspire_sdk_double.py
+inspire_sdkpy/qt_tabs.py
+inspire_sdkpy.egg-info/PKG-INFO
+inspire_sdkpy.egg-info/SOURCES.txt
+inspire_sdkpy.egg-info/dependency_links.txt
+inspire_sdkpy.egg-info/requires.txt
+inspire_sdkpy.egg-info/top_level.txt
+inspire_sdkpy/inspire_dds/__init__.py
+inspire_sdkpy/inspire_dds/_inspire_hand_ctrl.py
+inspire_sdkpy/inspire_dds/_inspire_hand_state.py
+inspire_sdkpy/inspire_dds/_inspire_hand_touch.py

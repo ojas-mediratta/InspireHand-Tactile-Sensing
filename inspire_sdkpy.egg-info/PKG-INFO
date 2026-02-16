@@ -1,0 +1,15 @@
+Metadata-Version: 2.1
+Name: inspire_sdkpy
+Version: 1.0.0
+Summary: Inspire Hand sdk for python
+Author: Unitree
+Author-email: unitree@unitree.com
+License: BSD-3-Clause
+Requires-Python: >=3.8
+Requires-Dist: cyclonedds==0.10.2
+Requires-Dist: numpy
+Requires-Dist: PyQt5
+Requires-Dist: pyqtgraph
+Requires-Dist: colorcet
+Requires-Dist: pymodbus==3.6.9
+Requires-Dist: pyserial
