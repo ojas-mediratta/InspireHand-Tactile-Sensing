@@ -54,6 +54,37 @@ cd ..
 
 ---
 
+## Configuring Wired Network Connection for Inspire Hands (One-time setup in Ubuntu)
+
+To communicate with the Inspire Hands via Ethernet/USB-C:
+
+1. **Open Wired Network Settings**  
+   - Click the network icon in the top-right corner of Ubuntu  
+   - Select **Wired Settings**  
+
+2. **Create a New Profile**  
+   - Click the **gear icon** next to your wired interface  
+   - Select **IPv4** settings  
+   - Set **Method** to `Manual`  
+   - Assign a static IP in the same subnet as the Inspire Hands, e.g.:  
+     - Example for PC: `192.168.123.100`  
+     - Subnet Mask: `255.255.255.0`  
+     - Gateway: leave blank  
+
+3. **Connect to the Hands**  
+   - The default IPs are:  
+     - Left hand: `192.168.123.210`  
+     - Right hand: `192.168.123.211`  
+   - Save and apply the settings  
+   - Open a terminal and test connectivity:  
+     ```bash
+     ping 192.168.123.210
+     ping 192.168.123.211
+     ```  
+   - If replies are received, communication is normal  
+
+> **Note:** Ensure your PC is directly connected to the hand via Ethernet or USB-C. Both the driver device and the hands must be on the same subnet to communicate properly.
+
 ## Running the Inspire Hands (LIDAR Lab Workflow)
 
 All runtime scripts are located in:
@@ -100,9 +131,12 @@ This script:
 - Displays a GUI
 - Plots force values on the tactile sensor map
 
-Any additional example scripts should also be run in separate terminals while the driver is active.
+A new set of scripts has been added for tactile data collection and robot hand pose toggling. These scripts are located in:
+```bash
+/home/lidar/InspireHand-Tactile-Sensing/data_collection_scripts
+```
 
----
+***These scripts are designed to run while the Headless_driver_double.py is active (multi-terminal setup still applies).***
 
 ## Control Modes
 
